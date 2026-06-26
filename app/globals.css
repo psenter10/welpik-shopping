@@ -1,0 +1,51 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: 44 35% 95%;
+  --foreground: 150 36% 14%;
+  --card: 0 0% 100%;
+  --card-foreground: 150 36% 14%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 150 36% 14%;
+  --primary: 150 36% 14%;
+  --primary-foreground: 44 35% 95%;
+  --secondary: 44 35% 90%;
+  --secondary-foreground: 150 36% 14%;
+  --muted: 44 20% 92%;
+  --muted-foreground: 150 10% 35%;
+  --accent: 32 60% 55%;
+  --accent-foreground: 150 36% 14%;
+  --destructive: 0 84% 60%;
+  --destructive-foreground: 0 0% 100%;
+  --border: 150 10% 85%;
+  --input: 150 10% 85%;
+  --ring: 150 36% 14%;
+  --radius: 0.5rem;
+}
+
+.font-serif {
+  font-family: var(--font-playfair), serif;
+}
+
+.brand-green { color: #1b3a2e; }
+.bg-brand-green { background-color: #1b3a2e; }
+.bg-brand-cream { background-color: #f7f3ec; }
+.bg-brand-sand { background-color: #ede4d3; }
+.border-brand-green { border-color: #1b3a2e; }
+
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+.animate-marquee { animation: marquee 30s linear infinite; }
+
+@keyframes marquee-slow {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+.animate-marquee-slow { animation: marquee-slow 60s linear infinite; }
