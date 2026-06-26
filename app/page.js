@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import Link from 'next/link'
 import {
   Search, ShoppingCart, User, Menu, ChevronLeft, ChevronRight,
   Star, Truck, ShieldCheck, Award, Leaf, Heart,
@@ -10,6 +11,9 @@ import { Button } from '@/components/ui/button'
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs'
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'
 import { Input } from '@/components/ui/input'
+import { PRODUCTS } from '@/lib/products'
+import { useCart } from '@/lib/cart-context'
+import CartDrawer from '@/components/cart-drawer'
 
 const heroBanners = [
   { img: 'https://www.zeroharm.in/cdn/shop/files/02-Brand-Welcome---Banner-Design_ce078f36-fd6a-43bd-99e2-cf1258d398a4.png?v=1762152933&width=3840' },
@@ -37,7 +41,9 @@ const categories = [
   { img: 'https://www.zeroharm.in/cdn/shop/files/Sexual_Health_2_100x.gif?v=1703161857', name: "Men's Health" },
 ]
 
-const bestSellers = [
+const bestSellers = PRODUCTS.slice(0, 8)
+const newArrivals = PRODUCTS.slice(6, 14).concat(PRODUCTS.slice(0, 1)).slice(0, 8)
+const _legacyBest = [
   { img: 'https://www.zeroharm.in/cdn/shop/files/1_20_b88cdbff-1a77-4fa1-b705-f8446ea84a0b.png?v=1766164278&width=533', name: 'ZeroHarm Back To Teens Tablets', rating: 4.57, reviews: 1079, price: 999, oldPrice: 1199, discount: 17 },
   { img: 'https://www.zeroharm.in/cdn/shop/files/narie-boomup-ayurvedic-breast-increase-capsules-8997401.jpg?v=1766165339&width=533', name: 'Narie BoomUp Ayurvedic Capsules', rating: 4.26, reviews: 53, price: 999, oldPrice: 1499, discount: 33 },
   { img: 'https://www.zeroharm.in/cdn/shop/files/GutarmyFi-02.jpg?v=1766166028&width=533', name: 'Gut Army Prebiotic & Probiotic Capsules', rating: 4.59, reviews: 1142, price: 999, oldPrice: 1199, discount: 17 },
@@ -48,7 +54,7 @@ const bestSellers = [
   { img: 'https://www.zeroharm.in/cdn/shop/files/Untitled-1-01.png?v=1778836896&width=533', name: 'Ayurvedic Narie Fertility Tablets', rating: 4.58, reviews: 1333, price: 1399, oldPrice: 1499, discount: 7 },
 ]
 
-const newArrivals = [
+const _legacyNew = [
   { img: 'https://www.zeroharm.in/cdn/shop/files/ayurvedic-blood-purifier-for-acne-6-herb-nano-formula-1924988.jpg?v=1766165506&width=533', name: 'Ayurvedic Blood Purifier For Acne', rating: 4.83, reviews: 64, price: 899, oldPrice: 1199, discount: 25 },
   { img: 'https://www.zeroharm.in/cdn/shop/files/carb-cutter-4435497.jpg?v=1766168308&width=533', name: 'Carb Cutter', rating: 4.88, reviews: 164, price: 1449, oldPrice: 1699, discount: 15 },
   { img: 'https://www.zeroharm.in/cdn/shop/files/holo-hypertens-3841161.jpg?v=1766165479&width=533', name: 'Holo Hypertens', rating: 4.82, reviews: 39, price: 999, oldPrice: 1399, discount: 29 },
@@ -133,19 +139,22 @@ function StarRating({ rating }) {
 }
 
 function ProductCard({ p }) {
+  const { addItem } = useCart()
   return (
     <div className="group bg-white rounded-xl overflow-hidden border border-stone-200 hover:shadow-xl transition-all duration-300 flex flex-col">
-      <div className="relative bg-[#f4ede0] aspect-square overflow-hidden">
+      <Link href={`/product/${p.slug}`} className="relative bg-[#f4ede0] aspect-square overflow-hidden block">
         {p.discount > 0 && (
           <div className="absolute top-3 left-3 z-10 bg-[#1b3a2e] text-white text-xs font-semibold px-2 py-1 rounded">-{p.discount}%</div>
         )}
-        <button className="absolute top-3 right-3 z-10 w-9 h-9 bg-white rounded-full flex items-center justify-center shadow hover:scale-110 transition">
+        <button onClick={(e) => { e.preventDefault() }} className="absolute top-3 right-3 z-10 w-9 h-9 bg-white rounded-full flex items-center justify-center shadow hover:scale-110 transition">
           <Heart className="w-4 h-4 text-[#1b3a2e]" />
         </button>
         <img src={p.img} alt={p.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
-      </div>
+      </Link>
       <div className="p-4 flex flex-col flex-1">
-        <h3 className="text-sm font-semibold text-[#1b3a2e] line-clamp-2 min-h-[2.5rem] mb-2">{p.name}</h3>
+        <Link href={`/product/${p.slug}`}>
+          <h3 className="text-sm font-semibold text-[#1b3a2e] line-clamp-2 min-h-[2.5rem] mb-2 hover:text-amber-700">{p.name}</h3>
+        </Link>
         <div className="flex items-center gap-2 mb-3">
           <StarRating rating={p.rating} />
           <span className="text-xs text-stone-500">{p.rating} ({p.reviews})</span>
@@ -154,7 +163,7 @@ function ProductCard({ p }) {
           <span className="text-lg font-bold text-[#1b3a2e]">₹{p.price.toLocaleString()}</span>
           <span className="text-sm text-stone-400 line-through">₹{p.oldPrice.toLocaleString()}</span>
         </div>
-        <Button className="mt-auto bg-[#1b3a2e] hover:bg-[#2a5444] text-white rounded-full text-sm">Add to Cart</Button>
+        <Button onClick={() => addItem(p, 1)} className="mt-auto bg-[#1b3a2e] hover:bg-[#2a5444] text-white rounded-full text-sm">Add to Cart</Button>
       </div>
     </div>
   )
@@ -164,12 +173,14 @@ function App() {
   const [heroIdx, setHeroIdx] = useState(0)
   const [stepIdx, setStepIdx] = useState(0)
   const [expertIdx, setExpertIdx] = useState(0)
+  const { count, setOpen: setCartOpen } = useCart()
 
   const next = () => setHeroIdx((heroIdx + 1) % heroBanners.length)
   const prev = () => setHeroIdx((heroIdx - 1 + heroBanners.length) % heroBanners.length)
 
   return (
     <div className="min-h-screen bg-[#f7f3ec]">
+      <CartDrawer />
       {/* Announcement bar */}
       <div className="bg-[#1b3a2e] text-[#f7f3ec] text-xs md:text-sm py-2 overflow-hidden">
         <div className="flex animate-marquee whitespace-nowrap gap-12">
@@ -221,9 +232,9 @@ function App() {
           <div className="flex items-center gap-1 md:gap-3">
             <button className="p-2 hidden md:block"><Search className="w-5 h-5 text-[#1b3a2e]" /></button>
             <button className="p-2 hidden md:flex items-center gap-2"><User className="w-5 h-5 text-[#1b3a2e]" /></button>
-            <button className="p-2 relative">
+            <button onClick={() => setCartOpen(true)} className="p-2 relative">
               <ShoppingCart className="w-5 h-5 text-[#1b3a2e]" />
-              <span className="absolute -top-1 -right-1 bg-amber-500 text-white text-[10px] w-4 h-4 rounded-full flex items-center justify-center font-bold">0</span>
+              <span className="absolute -top-1 -right-1 bg-amber-500 text-white text-[10px] min-w-[18px] h-[18px] rounded-full flex items-center justify-center font-bold px-1">{count}</span>
             </button>
           </div>
         </div>
