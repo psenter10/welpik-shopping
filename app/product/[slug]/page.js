@@ -2,7 +2,7 @@
 
 import { useState, use } from 'react'
 import Link from 'next/link'
-import { notFound } from 'next/navigation'
+import { notFound, useRouter } from 'next/navigation'
 import {
   Search, ShoppingCart, User, Menu, ChevronLeft, ChevronRight,
   Star, Truck, ShieldCheck, Award, Leaf, Heart, Plus, Minus,
@@ -68,6 +68,7 @@ export default function ProductPage({ params }) {
   if (!product) notFound()
 
   const { addItem } = useCart()
+  const router = useRouter()
   const [qty, setQty] = useState(1)
   const [activeImg, setActiveImg] = useState(0)
   const [added, setAdded] = useState(false)
@@ -185,7 +186,7 @@ export default function ProductPage({ params }) {
                 {added ? <><Check className="w-5 h-5 mr-2" /> Added to Cart!</> : <><ShoppingCart className="w-5 h-5 mr-2" /> Add to Cart</>}
               </Button>
             </div>
-            <Button onClick={() => { addItem(product, qty) }} variant="outline" className="w-full h-12 border-2 border-[#1b3a2e] text-[#1b3a2e] hover:bg-[#1b3a2e] hover:text-white rounded-full text-base font-semibold mb-6">
+            <Button onClick={() => { addItem(product, qty); router.push('/checkout') }} variant="outline" className="w-full h-12 border-2 border-[#1b3a2e] text-[#1b3a2e] hover:bg-[#1b3a2e] hover:text-white rounded-full text-base font-semibold mb-6">
               Buy It Now
             </Button>
 

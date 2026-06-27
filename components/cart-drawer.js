@@ -1,5 +1,6 @@
 'use client'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 import { Sheet, SheetContent } from '@/components/ui/sheet'
 import { Button } from '@/components/ui/button'
 import { X, Plus, Minus, ShoppingBag, Trash2 } from 'lucide-react'
@@ -7,6 +8,12 @@ import { useCart } from '@/lib/cart-context'
 
 export default function CartDrawer() {
   const { items, open, setOpen, removeItem, updateQty, count, subtotal, savings } = useCart()
+  const router = useRouter()
+
+  const goCheckout = () => {
+    setOpen(false)
+    router.push('/checkout')
+  }
 
   return (
     <Sheet open={open} onOpenChange={setOpen}>
@@ -69,7 +76,7 @@ export default function CartDrawer() {
                 <span className="font-serif text-xl font-bold text-[#1b3a2e]">₹{subtotal.toLocaleString()}</span>
               </div>
               <p className="text-xs text-stone-500">Shipping & taxes calculated at checkout.</p>
-              <Button className="w-full h-12 bg-[#1b3a2e] hover:bg-[#2a5444] text-white rounded-full text-base font-semibold">
+              <Button onClick={goCheckout} className="w-full h-12 bg-[#1b3a2e] hover:bg-[#2a5444] text-white rounded-full text-base font-semibold">
                 Checkout • ₹{subtotal.toLocaleString()}
               </Button>
               <button onClick={() => setOpen(false)} className="w-full text-center text-sm text-[#1b3a2e] hover:underline py-2">Continue Shopping</button>
