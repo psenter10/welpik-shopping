@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 import {
   Search, ShoppingCart, User, Menu, ChevronLeft, ChevronRight,
   Star, Truck, ShieldCheck, Award, Leaf, Heart,
@@ -33,12 +34,12 @@ const badges = [
 ]
 
 const categories = [
-  { img: 'https://www.zeroharm.in/cdn/shop/files/degistive_Health_3_100x.gif?v=1703161078', name: "Women's Health" },
-  { img: 'https://www.zeroharm.in/cdn/shop/files/fat_burner_1_100x.gif?v=1703161078', name: 'Weight Management' },
-  { img: 'https://www.zeroharm.in/cdn/shop/files/degistive_Health_1_100x.gif?v=1703160656', name: 'Digestive Health' },
-  { img: 'https://www.zeroharm.in/cdn/shop/files/Sexual_Health_2_100x.gif?v=1703161857', name: 'Sexual Health' },
-  { img: 'https://www.zeroharm.in/cdn/shop/files/lung_health_2_100x.gif?v=1703161856', name: 'Lung Health' },
-  { img: 'https://www.zeroharm.in/cdn/shop/files/Sexual_Health_2_100x.gif?v=1703161857', name: "Men's Health" },
+  { img: 'https://www.zeroharm.in/cdn/shop/files/degistive_Health_3_100x.gif?v=1703161078', name: "Women's Health", href: '/collections/womens-health' },
+  { img: 'https://www.zeroharm.in/cdn/shop/files/fat_burner_1_100x.gif?v=1703161078', name: 'Weight Management', href: '/collections/all' },
+  { img: 'https://www.zeroharm.in/cdn/shop/files/degistive_Health_1_100x.gif?v=1703160656', name: 'Digestive Health', href: '/collections/gut-health' },
+  { img: 'https://www.zeroharm.in/cdn/shop/files/Sexual_Health_2_100x.gif?v=1703161857', name: 'Sexual Health', href: '/collections/mens-health' },
+  { img: 'https://www.zeroharm.in/cdn/shop/files/lung_health_2_100x.gif?v=1703161856', name: 'Lung Health', href: '/collections/lung-health' },
+  { img: 'https://www.zeroharm.in/cdn/shop/files/Sexual_Health_2_100x.gif?v=1703161857', name: "Men's Health", href: '/collections/mens-health' },
 ]
 
 const bestSellers = PRODUCTS.slice(0, 8)
@@ -117,15 +118,15 @@ const instagramFeed = [
 ]
 
 const navLinks = [
-  { label: 'Shop All', items: ['All Products', 'Best Sellers', 'New Arrivals', 'Combos & Offers'] },
-  { label: 'Mens Health', items: ['Stamina & Strength', 'Sexual Wellness', 'Hair Care', 'Testosterone'] },
-  { label: 'Womens Health', items: ['Fertility', 'PCOS Care', 'Hormonal Balance', 'Beauty'] },
-  { label: 'Gut Health', items: ['Probiotics', 'Digestion', 'Gas Relief', 'Bloating'] },
-  { label: 'Weight', items: ['Fat Burners', 'Metabolism', 'Appetite Control'] },
-  { label: 'Beauty', items: ['Skin Care', 'Hair Care', 'Anti-Aging'] },
-  { label: 'Diabetic Care', items: ['Blood Sugar', 'Diabetes Support'] },
-  { label: 'About Us' },
-  { label: 'Blog' },
+  { label: 'Shop All', href: '/collections/all', items: ['All Products', 'Best Sellers', 'New Arrivals', 'Combos & Offers'] },
+  { label: 'Mens Health', href: '/collections/mens-health', items: ['Stamina & Strength', 'Sexual Wellness', 'Hair Care', 'Testosterone'] },
+  { label: 'Womens Health', href: '/collections/womens-health', items: ['Fertility', 'PCOS Care', 'Hormonal Balance', 'Beauty'] },
+  { label: 'Gut Health', href: '/collections/gut-health', items: ['Probiotics', 'Digestion', 'Gas Relief', 'Bloating'] },
+  { label: 'Weight', href: '/collections/all', items: ['Fat Burners', 'Metabolism', 'Appetite Control'] },
+  { label: 'Beauty', href: '/collections/beauty', items: ['Skin Care', 'Hair Care', 'Anti-Aging'] },
+  { label: 'Diabetic Care', href: '/collections/diabetic-care', items: ['Blood Sugar', 'Diabetes Support'] },
+  { label: 'About Us', href: '/' },
+  { label: 'Blog', href: '/' },
 ]
 
 function StarRating({ rating }) {
@@ -174,6 +175,13 @@ function App() {
   const [stepIdx, setStepIdx] = useState(0)
   const [expertIdx, setExpertIdx] = useState(0)
   const { count, setOpen: setCartOpen } = useCart()
+  const router = useRouter()
+  const [searchQ, setSearchQ] = useState('')
+
+  const onSearch = (e) => {
+    e.preventDefault()
+    if (searchQ.trim()) router.push(`/search?q=${encodeURIComponent(searchQ.trim())}`)
+  }
 
   const next = () => setHeroIdx((heroIdx + 1) % heroBanners.length)
   const prev = () => setHeroIdx((heroIdx - 1 + heroBanners.length) % heroBanners.length)
@@ -210,8 +218,9 @@ function App() {
               <SheetContent side="left" className="bg-[#f7f3ec]">
                 <div className="flex flex-col gap-4 mt-8">
                   {navLinks.map(n => (
-                    <a key={n.label} href="#" className="text-[#1b3a2e] font-medium border-b border-stone-200 pb-3">{n.label}</a>
+                    <Link key={n.label} href={n.href || '#'} className="text-[#1b3a2e] font-medium border-b border-stone-200 pb-3">{n.label}</Link>
                   ))}
+                  <Link href="/account/login" className="text-[#1b3a2e] font-medium border-b border-stone-200 pb-3">Account</Link>
                 </div>
               </SheetContent>
             </Sheet>
@@ -224,14 +233,14 @@ function App() {
             </div>
           </a>
 
-          <div className="hidden md:flex flex-1 max-w-xl mx-4 relative">
-            <Input placeholder="Search supplements, ingredients..." className="pl-10 bg-white border-stone-300 rounded-full h-11" />
+          <form onSubmit={onSearch} className="hidden md:flex flex-1 max-w-xl mx-4 relative">
+            <Input value={searchQ} onChange={e => setSearchQ(e.target.value)} placeholder="Search supplements, ingredients..." className="pl-10 bg-white border-stone-300 rounded-full h-11" />
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-stone-500" />
-          </div>
+          </form>
 
           <div className="flex items-center gap-1 md:gap-3">
-            <button className="p-2 hidden md:block"><Search className="w-5 h-5 text-[#1b3a2e]" /></button>
-            <button className="p-2 hidden md:flex items-center gap-2"><User className="w-5 h-5 text-[#1b3a2e]" /></button>
+            <Link href="/search" className="p-2 md:hidden"><Search className="w-5 h-5 text-[#1b3a2e]" /></Link>
+            <Link href="/account/login" className="p-2 hidden md:flex items-center gap-2"><User className="w-5 h-5 text-[#1b3a2e]" /></Link>
             <button onClick={() => setCartOpen(true)} className="p-2 relative">
               <ShoppingCart className="w-5 h-5 text-[#1b3a2e]" />
               <span className="absolute -top-1 -right-1 bg-amber-500 text-white text-[10px] min-w-[18px] h-[18px] rounded-full flex items-center justify-center font-bold px-1">{count}</span>
@@ -244,11 +253,11 @@ function App() {
             <ul className="flex items-center justify-center gap-7 py-3">
               {navLinks.map(n => (
                 <li key={n.label} className="group relative">
-                  <a href="#" className="text-xs xl:text-sm font-medium text-[#1b3a2e] hover:text-amber-700 uppercase tracking-wide whitespace-nowrap">{n.label}</a>
+                  <Link href={n.href || '#'} className="text-xs xl:text-sm font-medium text-[#1b3a2e] hover:text-amber-700 uppercase tracking-wide whitespace-nowrap">{n.label}</Link>
                   {n.items && (
                     <div className="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-56 bg-white border border-stone-200 rounded-lg shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all py-2 z-50">
                       {n.items.map(it => (
-                        <a key={it} href="#" className="block px-4 py-2 text-sm text-[#1b3a2e] hover:bg-stone-100">{it}</a>
+                        <Link key={it} href={n.href || '#'} className="block px-4 py-2 text-sm text-[#1b3a2e] hover:bg-stone-100">{it}</Link>
                       ))}
                     </div>
                   )}
@@ -301,12 +310,12 @@ function App() {
         <p className="text-center text-stone-600 mb-10 max-w-2xl mx-auto">Discover plant-powered nano-formulated solutions tailored to your health goals.</p>
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 md:gap-6">
           {categories.map((c, i) => (
-            <a key={i} href="#" className="group flex flex-col items-center gap-3 text-center">
+            <Link key={i} href={c.href} className="group flex flex-col items-center gap-3 text-center">
               <div className="w-24 h-24 md:w-32 md:h-32 rounded-full bg-[#ede4d3] flex items-center justify-center overflow-hidden group-hover:scale-105 transition-transform shadow-sm">
                 <img src={c.img} alt={c.name} className="w-3/4 h-3/4 object-contain" />
               </div>
               <span className="text-sm md:text-base font-medium text-[#1b3a2e] group-hover:text-amber-700">{c.name}</span>
-            </a>
+            </Link>
           ))}
         </div>
       </section>
