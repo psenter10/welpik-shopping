@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import {
@@ -172,6 +172,7 @@ function ProductCard({ p }) {
 
 function App() {
   const [heroIdx, setHeroIdx] = useState(0)
+  const [heroPaused, setHeroPaused] = useState(false)
   const [stepIdx, setStepIdx] = useState(0)
   const [expertIdx, setExpertIdx] = useState(0)
   const { count, setOpen: setCartOpen } = useCart()
@@ -182,6 +183,15 @@ function App() {
     e.preventDefault()
     if (searchQ.trim()) router.push(`/search?q=${encodeURIComponent(searchQ.trim())}`)
   }
+
+  // Auto-slide hero every 4.5s, pause on hover
+  useEffect(() => {
+    if (heroPaused) return
+    const id = setInterval(() => {
+      setHeroIdx(i => (i + 1) % heroBanners.length)
+    }, 4500)
+    return () => clearInterval(id)
+  }, [heroPaused])
 
   const next = () => setHeroIdx((heroIdx + 1) % heroBanners.length)
   const prev = () => setHeroIdx((heroIdx - 1 + heroBanners.length) % heroBanners.length)
@@ -270,7 +280,11 @@ function App() {
 
       {/* Hero */}
       <section className="relative">
-        <div className="relative aspect-[16/8] md:aspect-[16/6] overflow-hidden bg-[#1b3a2e]">
+        <div
+          className="relative aspect-[16/8] md:aspect-[16/6] overflow-hidden bg-[#1b3a2e]"
+          onMouseEnter={() => setHeroPaused(true)}
+          onMouseLeave={() => setHeroPaused(false)}
+        >
           {heroBanners.map((b, i) => (
             <img key={i} src={b.img} alt="" className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-700 ${i === heroIdx ? 'opacity-100' : 'opacity-0'}`} />
           ))}
