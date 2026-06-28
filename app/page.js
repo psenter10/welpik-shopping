@@ -5,7 +5,7 @@ import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import {
   Search, ShoppingCart, User, Menu, ChevronLeft, ChevronRight,
-  Star, Truck, ShieldCheck, Award, Leaf, Heart,
+  Star, Truck, ShieldCheck, Award, Leaf, Heart, Play, Volume2,
   Facebook, Instagram, Youtube, Twitter, ArrowRight, Phone, Mail, MapPin
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
@@ -24,6 +24,65 @@ const heroBanners = [
   { img: 'https://www.zeroharm.in/cdn/shop/files/07-Weight-Management---Banner-Design_68556260-4344-4ce1-b500-f722848816e8.png?v=1762152933&width=3840' },
   { img: 'https://www.zeroharm.in/cdn/shop/files/08-Beauty-Range---Banner-Design_1f5f2c81-6a80-4660-bbcc-7903dc599bfd.png?v=1762152933&width=3840' },
   { img: 'https://www.zeroharm.in/cdn/shop/files/09-Diabetic-Range---Banner-Design_e9e3a07f-bf4a-4d90-8e3b-413e9a13bc36.png?v=1762152933&width=3840' },
+]
+
+const reels = [
+  {
+    img: 'https://images.unsplash.com/photo-1559757175-5700dde675bc?w=600&q=80',
+    caption: 'pata hi nahi chalta tha',
+    productSlug: 'magnesium-glycinate-120-capsules',
+    productName: 'Holo Migraine',
+    productImg: 'https://www.zeroharm.in/cdn/shop/files/magnesium-glycinate-capsules-4754965.jpg?v=1766165396&width=200',
+  },
+  {
+    img: 'https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=600&q=80',
+    caption: 'sleep like a baby now',
+    productSlug: 'magnesium-glycinate-120-capsules',
+    productName: 'Magnesium Glycinate Capsules',
+    productImg: 'https://www.zeroharm.in/cdn/shop/files/magnesium-glycinate-capsules-4754965.jpg?v=1766165396&width=200',
+  },
+  {
+    img: 'https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?w=600&q=80',
+    caption: 'I decided to end this embarrassment',
+    productSlug: 'gut-army-prebiotics-probiotics-capsules',
+    productName: 'Gut Army Prebiotic & Probiotic Capsules',
+    productImg: 'https://www.zeroharm.in/cdn/shop/files/GutarmyFi-02.jpg?v=1766166028&width=200',
+  },
+  {
+    img: 'https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=600&q=80',
+    caption: 'Conceived naturally in 4 months',
+    productSlug: 'narie-fertility-formula',
+    productName: 'Ayurvedic Narie Fertility Formula',
+    productImg: 'https://www.zeroharm.in/cdn/shop/files/ayurvedic-zeroharm-narie-fertility-formula-tablets-to-conceive-naturally-9203153.jpg?v=1766167594&width=200',
+  },
+  {
+    img: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=600&q=80',
+    caption: 'I just couldn\'t hold it',
+    productSlug: 'narie-desire-lift',
+    productName: 'Narie Discharge Supplements',
+    productImg: 'https://www.zeroharm.in/cdn/shop/files/narie-desire-lift-3347406.jpg?v=1766165317&width=200',
+  },
+  {
+    img: 'https://images.unsplash.com/photo-1594824476967-48c8b964273f?w=600&q=80',
+    caption: 'chalne phirne baithne jaisa kaam',
+    productSlug: 'holo-piles-care',
+    productName: 'Holo Piles Care',
+    productImg: 'https://www.zeroharm.in/cdn/shop/files/holo-piles-care-4678226.jpg?v=1766168363&width=200',
+  },
+  {
+    img: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&q=80',
+    caption: 'finally clear skin',
+    productSlug: 'blood-purifis',
+    productName: 'Ayurvedic Blood Purifier',
+    productImg: 'https://www.zeroharm.in/cdn/shop/files/ayurvedic-blood-purifier-for-acne-6-herb-nano-formula-1924988.jpg?v=1766165506&width=200',
+  },
+  {
+    img: 'https://images.unsplash.com/photo-1571902943202-507ec2618e8f?w=600&q=80',
+    caption: 'energy back at 50',
+    productSlug: 'shilajit-with-ashwagandha-tablets',
+    productName: 'Himalayan Shilajit',
+    productImg: 'https://www.zeroharm.in/cdn/shop/files/2_2.jpg?v=1766167097&width=200',
+  },
 ]
 
 const badges = [
@@ -178,6 +237,13 @@ function App() {
   const { count, setOpen: setCartOpen } = useCart()
   const router = useRouter()
   const [searchQ, setSearchQ] = useState('')
+  const reelsRef = useRef(null)
+
+  const scrollReels = (dir) => {
+    if (!reelsRef.current) return
+    const w = reelsRef.current.clientWidth
+    reelsRef.current.scrollBy({ left: dir * (w * 0.7), behavior: 'smooth' })
+  }
 
   const onSearch = (e) => {
     e.preventDefault()
@@ -298,6 +364,91 @@ function App() {
             {heroBanners.map((_, i) => (
               <button key={i} onClick={() => setHeroIdx(i)} className={`h-2 rounded-full transition-all ${i === heroIdx ? 'w-8 bg-white' : 'w-2 bg-white/60'}`} />
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Shop The Reel */}
+      <section className="py-12 md:py-16 bg-[#f7f3ec]">
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="flex items-end justify-between mb-6 md:mb-8">
+            <div>
+              <div className="text-amber-700 uppercase tracking-widest text-xs font-semibold mb-2 flex items-center gap-2">
+                <span className="inline-block w-2 h-2 rounded-full bg-red-500 animate-pulse" /> Shop The Reel
+              </div>
+              <h2 className="font-serif text-3xl md:text-5xl text-[#1b3a2e] leading-tight">Real Stories. Real Results.</h2>
+            </div>
+            <div className="hidden md:flex gap-2">
+              <button onClick={() => scrollReels(-1)} aria-label="Previous" className="w-11 h-11 rounded-full border border-[#1b3a2e] text-[#1b3a2e] hover:bg-[#1b3a2e] hover:text-white flex items-center justify-center transition">
+                <ChevronLeft className="w-5 h-5" />
+              </button>
+              <button onClick={() => scrollReels(1)} aria-label="Next" className="w-11 h-11 rounded-full border border-[#1b3a2e] text-[#1b3a2e] hover:bg-[#1b3a2e] hover:text-white flex items-center justify-center transition">
+                <ChevronRight className="w-5 h-5" />
+              </button>
+            </div>
+          </div>
+
+          <div className="relative">
+            <div ref={reelsRef} className="flex gap-3 md:gap-4 overflow-x-auto no-scrollbar snap-x snap-mandatory pb-2 -mx-4 px-4">
+              {reels.map((r, i) => (
+                <Link
+                  key={i}
+                  href={`/product/${r.productSlug}`}
+                  className="group relative shrink-0 snap-start w-[58vw] sm:w-[40vw] md:w-[280px] lg:w-[300px] aspect-[9/16] rounded-2xl overflow-hidden bg-stone-900 shadow-lg hover:shadow-2xl transition-shadow"
+                >
+                  {/* Background image */}
+                  <img src={r.img} alt={r.caption} className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+
+                  {/* Gradient overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-transparent to-black/70" />
+
+                  {/* Top-right mute/play icons */}
+                  <div className="absolute top-3 right-3 flex flex-col gap-2 z-10">
+                    <div className="w-9 h-9 rounded-full bg-black/40 backdrop-blur-sm text-white flex items-center justify-center">
+                      <Volume2 className="w-4 h-4" />
+                    </div>
+                  </div>
+
+                  {/* Center play */}
+                  <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                    <div className="w-14 h-14 rounded-full bg-white/30 backdrop-blur-md flex items-center justify-center opacity-90 group-hover:scale-110 transition-transform">
+                      <Play className="w-6 h-6 text-white fill-white ml-0.5" />
+                    </div>
+                  </div>
+
+                  {/* Caption badge */}
+                  <div className="absolute top-1/2 -translate-y-8 left-3 right-3 z-10">
+                    <span className="inline-block bg-amber-300 text-[#1b3a2e] font-bold text-sm md:text-base px-2 py-1 rounded shadow-md leading-tight">
+                      {r.caption}
+                    </span>
+                  </div>
+
+                  {/* Product chip */}
+                  <div className="absolute bottom-0 left-0 right-0 p-3 z-10">
+                    <div className="bg-white/95 backdrop-blur rounded-xl p-2 flex items-center gap-2 shadow-lg">
+                      <div className="w-12 h-12 rounded-lg overflow-hidden bg-[#f4ede0] shrink-0">
+                        <img src={r.productImg} alt={r.productName} className="w-full h-full object-cover" />
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <div className="text-[11px] uppercase tracking-wider text-amber-700 font-semibold">Shop Now</div>
+                        <div className="text-sm font-semibold text-[#1b3a2e] line-clamp-2 leading-tight">{r.productName}</div>
+                      </div>
+                      <div className="w-8 h-8 rounded-full bg-[#1b3a2e] text-white flex items-center justify-center shrink-0">
+                        <ArrowRight className="w-4 h-4" />
+                      </div>
+                    </div>
+                  </div>
+                </Link>
+              ))}
+            </div>
+
+            {/* Mobile nav arrows */}
+            <button onClick={() => scrollReels(-1)} aria-label="Previous" className="md:hidden absolute left-1 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-white/90 shadow-lg flex items-center justify-center text-[#1b3a2e]">
+              <ChevronLeft className="w-5 h-5" />
+            </button>
+            <button onClick={() => scrollReels(1)} aria-label="Next" className="md:hidden absolute right-1 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-white/90 shadow-lg flex items-center justify-center text-[#1b3a2e]">
+              <ChevronRight className="w-5 h-5" />
+            </button>
           </div>
         </div>
       </section>
