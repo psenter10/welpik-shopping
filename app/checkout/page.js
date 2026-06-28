@@ -112,11 +112,8 @@ export default function CheckoutPage() {
       {/* Header */}
       <header className="bg-white border-b border-stone-200">
         <div className="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
-          <Link href="/" className="flex items-center gap-2">
-            <div className="flex flex-col leading-none">
-              <span className="font-serif text-2xl font-bold text-[#1b3a2e]">ZeroHarm</span>
-              <span className="text-[10px] tracking-[0.3em] text-[#1b3a2e]/70 uppercase">Sciences</span>
-            </div>
+          <Link href="/" className="flex items-center">
+            <img src="/logo/welpik-logo.png" alt="Welpik" className="h-10 w-auto object-contain" />
           </Link>
           <div className="hidden sm:flex items-center gap-2 text-sm text-stone-600">
             <Lock className="w-4 h-4 text-emerald-700" /> Secure Checkout

@@ -7,8 +7,12 @@ const inter = Inter({ subsets: ['latin'], variable: '--font-inter' })
 const playfair = Playfair_Display({ subsets: ['latin'], variable: '--font-playfair' })
 
 export const metadata = {
-  title: '100% Plant Based Natural Health Supplements India - Zeroharm Sciences',
+  title: '100% Plant Based Natural Health Supplements India - Welpik',
   description: "India's 1st Nano formulated nutraceutical brand. Get 100% plant based natural wellness & healthcare supplements.",
+  icons: {
+    icon: '/logo/favicon.ico',
+    apple: '/logo/icon.png',
+  },
 }
 
 export default function RootLayout({ children }) {

@@ -26,9 +26,8 @@ function SuccessContent() {
     <div className="min-h-screen bg-[#f7f3ec]">
       <header className="bg-white border-b border-stone-200">
         <div className="max-w-6xl mx-auto px-4 py-4 flex items-center justify-center">
-          <Link href="/" className="flex flex-col items-center leading-none">
-            <span className="font-serif text-2xl font-bold text-[#1b3a2e]">ZeroHarm</span>
-            <span className="text-[10px] tracking-[0.3em] text-[#1b3a2e]/70 uppercase">Sciences</span>
+          <Link href="/" className="flex items-center">
+            <img src="/logo/welpik-logo.png" alt="Welpik" className="h-10 w-auto object-contain" />
           </Link>
         </div>
       </header>

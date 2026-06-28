@@ -2,86 +2,86 @@
 
 import { useState, useEffect, useRef } from 'react'
 import Link from 'next/link'
-import { useRouter } from 'next/navigation'
 import {
-  Search, ShoppingCart, User, Menu, ChevronLeft, ChevronRight,
+  ChevronLeft, ChevronRight,
   Star, Truck, ShieldCheck, Award, Leaf, Heart, Play, Volume2,
   Facebook, Instagram, Youtube, Twitter, ArrowRight, Phone, Mail, MapPin
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs'
-import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'
-import { Input } from '@/components/ui/input'
 import { PRODUCTS } from '@/lib/products'
 import { useCart } from '@/lib/cart-context'
 import CartDrawer from '@/components/cart-drawer'
+import SiteHeader from '@/components/site-header'
+import SiteFooter from '@/components/site-footer'
+import { Input } from '@/components/ui/input'
 
 const heroBanners = [
-  { img: 'https://www.zeroharm.in/cdn/shop/files/02-Brand-Welcome---Banner-Design_ce078f36-fd6a-43bd-99e2-cf1258d398a4.png?v=1762152933&width=3840' },
-  { img: 'https://www.zeroharm.in/cdn/shop/files/04-Mens-Health---Banner-Design_c3582052-9fe5-4b6b-a2d5-551bf0bce6a6.png?v=1762152933&width=3840' },
-  { img: 'https://www.zeroharm.in/cdn/shop/files/05-Womens-Health---Banner-Design_5d8d0ba2-30e3-4bbe-a34e-8d80ef1f841c.png?v=1762152933&width=3840' },
-  { img: 'https://www.zeroharm.in/cdn/shop/files/06-Digestion---Banner-Design_07aaadd2-19ba-49e7-a8e6-8c3071340dac.png?v=1762152933&width=3840' },
-  { img: 'https://www.zeroharm.in/cdn/shop/files/07-Weight-Management---Banner-Design_68556260-4344-4ce1-b500-f722848816e8.png?v=1762152933&width=3840' },
-  { img: 'https://www.zeroharm.in/cdn/shop/files/08-Beauty-Range---Banner-Design_1f5f2c81-6a80-4660-bbcc-7903dc599bfd.png?v=1762152933&width=3840' },
-  { img: 'https://www.zeroharm.in/cdn/shop/files/09-Diabetic-Range---Banner-Design_e9e3a07f-bf4a-4d90-8e3b-413e9a13bc36.png?v=1762152933&width=3840' },
+  { img: '/Banners/Banner (1).png' },
+  { img: '/Banners/Banner (2).png' },
+  { img: '/Banners/Banner (3).png' },
+  { img: '/Banners/Banner (4).png' },
+  { img: '/Banners/Banner (5).png' },
+  { img: '/Banners/Banner (6).png' },
+  { img: '/Banners/Banner (7).png' },
 ]
 
 const reels = [
   {
     img: 'https://images.unsplash.com/photo-1559757175-5700dde675bc?w=600&q=80',
-    caption: 'pata hi nahi chalta tha',
-    productSlug: 'magnesium-glycinate-120-capsules',
-    productName: 'Holo Migraine',
-    productImg: 'https://www.zeroharm.in/cdn/shop/files/magnesium-glycinate-capsules-4754965.jpg?v=1766165396&width=200',
+    caption: 'focus like never before',
+    productSlug: 'focusiq',
+    productName: 'FocusIQ',
+    productImg: '/Product Image/1.jpg',
   },
   {
     img: 'https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=600&q=80',
     caption: 'sleep like a baby now',
-    productSlug: 'magnesium-glycinate-120-capsules',
-    productName: 'Magnesium Glycinate Capsules',
-    productImg: 'https://www.zeroharm.in/cdn/shop/files/magnesium-glycinate-capsules-4754965.jpg?v=1766165396&width=200',
+    productSlug: 'sleepzen',
+    productName: 'SleepZen',
+    productImg: '/Product Image/3.jpg',
   },
   {
     img: 'https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?w=600&q=80',
-    caption: 'I decided to end this embarrassment',
-    productSlug: 'gut-army-prebiotics-probiotics-capsules',
-    productName: 'Gut Army Prebiotic & Probiotic Capsules',
-    productImg: 'https://www.zeroharm.in/cdn/shop/files/GutarmyFi-02.jpg?v=1766166028&width=200',
+    caption: 'no more bloating ever',
+    productSlug: 'gutglow',
+    productName: 'GutGlow',
+    productImg: '/Product Image/4.jpg',
   },
   {
     img: 'https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=600&q=80',
-    caption: 'Conceived naturally in 4 months',
-    productSlug: 'narie-fertility-formula',
-    productName: 'Ayurvedic Narie Fertility Formula',
-    productImg: 'https://www.zeroharm.in/cdn/shop/files/ayurvedic-zeroharm-narie-fertility-formula-tablets-to-conceive-naturally-9203153.jpg?v=1766167594&width=200',
+    caption: 'glowing skin in 4 weeks',
+    productSlug: 'glowcollagen',
+    productName: 'GlowCollagen',
+    productImg: '/Product Image/14.jpg',
   },
   {
     img: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=600&q=80',
-    caption: 'I just couldn\'t hold it',
-    productSlug: 'narie-desire-lift',
-    productName: 'Narie Discharge Supplements',
-    productImg: 'https://www.zeroharm.in/cdn/shop/files/narie-desire-lift-3347406.jpg?v=1766165317&width=200',
+    caption: 'energy back at 30',
+    productSlug: 'peakfuel',
+    productName: 'PeakFuel',
+    productImg: '/Product Image/6.jpg',
   },
   {
     img: 'https://images.unsplash.com/photo-1594824476967-48c8b964273f?w=600&q=80',
-    caption: 'chalne phirne baithne jaisa kaam',
-    productSlug: 'holo-piles-care',
-    productName: 'Holo Piles Care',
-    productImg: 'https://www.zeroharm.in/cdn/shop/files/holo-piles-care-4678226.jpg?v=1766168363&width=200',
+    caption: 'stress mein bhi calm rahi',
+    productSlug: 'calmcore',
+    productName: 'CalmCore',
+    productImg: '/Product Image/2.jpg',
   },
   {
     img: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&q=80',
-    caption: 'finally clear skin',
-    productSlug: 'blood-purifis',
-    productName: 'Ayurvedic Blood Purifier',
-    productImg: 'https://www.zeroharm.in/cdn/shop/files/ayurvedic-blood-purifier-for-acne-6-herb-nano-formula-1924988.jpg?v=1766165506&width=200',
+    caption: 'finally no more hair fall',
+    productSlug: 'hairfuel',
+    productName: 'HairFuel',
+    productImg: '/Product Image/13.jpg',
   },
   {
     img: 'https://images.unsplash.com/photo-1571902943202-507ec2618e8f?w=600&q=80',
-    caption: 'energy back at 50',
-    productSlug: 'shilajit-with-ashwagandha-tablets',
-    productName: 'Himalayan Shilajit',
-    productImg: 'https://www.zeroharm.in/cdn/shop/files/2_2.jpg?v=1766167097&width=200',
+    caption: 'sugar under control now',
+    productSlug: 'sugarbalance',
+    productName: 'SugarBalance',
+    productImg: '/Product Image/12.jpg',
   },
 ]
 
@@ -93,18 +93,18 @@ const badges = [
 ]
 
 const categories = [
-  { img: 'https://www.zeroharm.in/cdn/shop/files/degistive_Health_3_100x.gif?v=1703161078', name: "Women's Health", href: '/collections/womens-health' },
-  { img: 'https://www.zeroharm.in/cdn/shop/files/fat_burner_1_100x.gif?v=1703161078', name: 'Weight Management', href: '/collections/all' },
-  { img: 'https://www.zeroharm.in/cdn/shop/files/degistive_Health_1_100x.gif?v=1703160656', name: 'Digestive Health', href: '/collections/gut-health' },
-  { img: 'https://www.zeroharm.in/cdn/shop/files/Sexual_Health_2_100x.gif?v=1703161857', name: 'Sexual Health', href: '/collections/mens-health' },
-  { img: 'https://www.zeroharm.in/cdn/shop/files/lung_health_2_100x.gif?v=1703161856', name: 'Lung Health', href: '/collections/lung-health' },
-  { img: 'https://www.zeroharm.in/cdn/shop/files/Sexual_Health_2_100x.gif?v=1703161857', name: "Men's Health", href: '/collections/mens-health' },
+  { img: '/Product Image/14.jpg', name: 'Beauty & Skin', href: '/collections/beauty' },
+  { img: '/Product Image/16.jpg', name: 'Weight Management', href: '/collections/weight-management' },
+  { img: '/Product Image/4.jpg', name: 'Gut Health', href: '/collections/gut-health' },
+  { img: '/Product Image/8.jpg', name: 'Heart Health', href: '/collections/heart-health' },
+  { img: '/Product Image/1.jpg', name: 'Brain & Focus', href: '/collections/wellness' },
+  { img: '/Product Image/12.jpg', name: 'Diabetic Care', href: '/collections/diabetic-care' },
 ]
 
 const bestSellers = PRODUCTS.slice(0, 8)
 const newArrivals = PRODUCTS.slice(6, 14).concat(PRODUCTS.slice(0, 1)).slice(0, 8)
 const _legacyBest = [
-  { img: 'https://www.zeroharm.in/cdn/shop/files/1_20_b88cdbff-1a77-4fa1-b705-f8446ea84a0b.png?v=1766164278&width=533', name: 'ZeroHarm Back To Teens Tablets', rating: 4.57, reviews: 1079, price: 999, oldPrice: 1199, discount: 17 },
+  { img: 'https://www.zeroharm.in/cdn/shop/files/1_20_b88cdbff-1a77-4fa1-b705-f8446ea84a0b.png?v=1766164278&width=533', name: 'Welpik Back To Teens Tablets', rating: 4.57, reviews: 1079, price: 999, oldPrice: 1199, discount: 17 },
   { img: 'https://www.zeroharm.in/cdn/shop/files/narie-boomup-ayurvedic-breast-increase-capsules-8997401.jpg?v=1766165339&width=533', name: 'Narie BoomUp Ayurvedic Capsules', rating: 4.26, reviews: 53, price: 999, oldPrice: 1499, discount: 33 },
   { img: 'https://www.zeroharm.in/cdn/shop/files/GutarmyFi-02.jpg?v=1766166028&width=533', name: 'Gut Army Prebiotic & Probiotic Capsules', rating: 4.59, reviews: 1142, price: 999, oldPrice: 1199, discount: 17 },
   { img: 'https://www.zeroharm.in/cdn/shop/files/2_2.jpg?v=1766167097&width=533', name: 'Himalayan Shilajit With Ashwagandha & Safed Musli', rating: 4.58, reviews: 1409, price: 1300, oldPrice: 1899, discount: 32 },
@@ -140,18 +140,18 @@ const ingredients = [
 
 const steps = [
   { step: 1, title: 'Sourcing', img: 'https://www.zeroharm.in/cdn/shop/files/sourcing-01_600x.png?v=1703938872', desc: 'We select premium ingredients from original farms prioritizing quality. Wild grown for purity, our plants thrive in pristine conditions. Region-specific from NE, Himalayan, and South regions.' },
-  { step: 2, title: 'Extraction', img: 'https://www.zeroharm.in/cdn/shop/files/Extraction-2-01_600x.png?v=1703936420', desc: 'We prioritize extracting maximum benefits through our aqueous extraction process. Non-solvent aqueous extraction ensures Zero Harm and effectiveness.' },
+  { step: 2, title: 'Extraction', img: 'https://www.zeroharm.in/cdn/shop/files/Extraction-2-01_600x.png?v=1703936420', desc: 'We prioritize extracting maximum benefits through our aqueous extraction process. Non-solvent aqueous extraction ensures Welpik quality and effectiveness.' },
   { step: 3, title: 'Nanotechnology', img: 'https://www.zeroharm.in/cdn/shop/files/Nanotechnology--01_b73d61a9-763d-4def-a0a2-db1681541c15_600x.png?v=1703936420', desc: 'Our products are manufactured using cutting-edge patent pending nanotechnology, improving solubility, bioavailability, and stability of ingredients.' },
   { step: 4, title: 'Encapsulation', img: 'https://www.zeroharm.in/cdn/shop/files/Encapsulation-2-01_600x.png?v=1703936420', desc: 'Using our nano-technology, active ingredients are encapsulated, forming a protective layer that enhances cellular uptake and prevents leaching.' },
   { step: 5, title: 'Packaging', img: 'https://www.zeroharm.in/cdn/shop/files/packaging-01-01-01_600x.png?v=1703938872', desc: 'To ensure hygiene and preserve the efficacy, we utilize glass bottles for packaging, especially in hot and humid conditions.' },
 ]
 
 const experts = [
-  { name: 'Dr. Shalini Patodiya', title: 'Dermatologist & Holistic Wellness Expert', img: 'https://www.zeroharm.in/cdn/shop/files/ZH_Doctors_creative_website_set_1_W_357_x_H_337_pxl_19_12_23_Dr._Shalini_428a7601-054b-42fa-a250-c2334d97f7c4_600x.jpg?v=1738407955', quote: "ZeroHarm's comprehensive approach to holistic wellness is revolutionary. As an expert, I wholeheartedly endorse their dedication to nurturing health from within." },
-  { name: 'Dr. Bharat Patodiya', title: 'Consultant Medical Oncologist, Lung & Breast Cancer Specialist', img: 'https://www.zeroharm.in/cdn/shop/files/ZH_Doctors_creative_website_set_1_W_357_x_H_337_pxl_19_12_23_Dr._Bharat_600x.jpg?v=1703054885', quote: "I've seen remarkable transformations with ZeroHarm's holistic care. Their commitment to overall well-being and natural health solutions is exemplary." },
-  { name: 'Dr. Sudhakar Darbawar', title: 'Promoter & Director, 45 Years In Medical Field', img: 'https://www.zeroharm.in/cdn/shop/files/ZH_Doctors_creative_website_set_1_W_357_x_H_337_pxl_19_12_23_Dr._Sudhakar_600x.jpg?v=1703054885', quote: "ZeroHarm's holistic vision reshapes health standards. I proudly support their integrative approach that empowers individuals toward sustained well-being." },
-  { name: 'Dr. Snehal R Pansare', title: 'Advisor-Obstetrician and Gynaecologist', img: 'https://www.zeroharm.in/cdn/shop/files/ZH_Doctors_creative_website_set_1_W_357_x_H_337_pxl_19_12_23_Dr._Snehal_600x.jpg?v=1703054885', quote: "Having witnessed ZeroHarm's impact firsthand, I believe in their holistic methods for women's care. Their comprehensive approach fosters empowerment and enduring health." },
-  { name: 'Dr. Nitin Darbawar', title: 'Specialist', img: 'https://www.zeroharm.in/cdn/shop/files/ZH_Doctors_creative_website_set_1_W_357_x_H_337_pxl_19_12_23_Dr._Nitin_c8aaad73-0c9a-44a3-975e-674f75e1fea8_600x.jpg?v=1707912817', quote: "As a Specialist, I commend ZeroHarm's holistic approach. Their comprehensive solutions prioritize root causes, empowering patients toward lasting wellness." },
+  { name: 'Dr. Shalini Patodiya', title: 'Dermatologist & Holistic Wellness Expert', img: 'https://www.zeroharm.in/cdn/shop/files/ZH_Doctors_creative_website_set_1_W_357_x_H_337_pxl_19_12_23_Dr._Shalini_428a7601-054b-42fa-a250-c2334d97f7c4_600x.jpg?v=1738407955', quote: "Welpik's comprehensive approach to holistic wellness is revolutionary. As an expert, I wholeheartedly endorse their dedication to nurturing health from within." },
+  { name: 'Dr. Bharat Patodiya', title: 'Consultant Medical Oncologist, Lung & Breast Cancer Specialist', img: 'https://www.zeroharm.in/cdn/shop/files/ZH_Doctors_creative_website_set_1_W_357_x_H_337_pxl_19_12_23_Dr._Bharat_600x.jpg?v=1703054885', quote: "I've seen remarkable transformations with Welpik's holistic care. Their commitment to overall well-being and natural health solutions is exemplary." },
+  { name: 'Dr. Sudhakar Darbawar', title: 'Promoter & Director, 45 Years In Medical Field', img: 'https://www.zeroharm.in/cdn/shop/files/ZH_Doctors_creative_website_set_1_W_357_x_H_337_pxl_19_12_23_Dr._Sudhakar_600x.jpg?v=1703054885', quote: "Welpik's holistic vision reshapes health standards. I proudly support their integrative approach that empowers individuals toward sustained well-being." },
+  { name: 'Dr. Snehal R Pansare', title: 'Advisor-Obstetrician and Gynaecologist', img: 'https://www.zeroharm.in/cdn/shop/files/ZH_Doctors_creative_website_set_1_W_357_x_H_337_pxl_19_12_23_Dr._Snehal_600x.jpg?v=1703054885', quote: "Having witnessed Welpik's impact firsthand, I believe in their holistic methods for women's care. Their comprehensive approach fosters empowerment and enduring health." },
+  { name: 'Dr. Nitin Darbawar', title: 'Specialist', img: 'https://www.zeroharm.in/cdn/shop/files/ZH_Doctors_creative_website_set_1_W_357_x_H_337_pxl_19_12_23_Dr._Nitin_c8aaad73-0c9a-44a3-975e-674f75e1fea8_600x.jpg?v=1707912817', quote: "As a Specialist, I commend Welpik's holistic approach. Their comprehensive solutions prioritize root causes, empowering patients toward lasting wellness." },
 ]
 
 const blogs = [
@@ -177,13 +177,13 @@ const instagramFeed = [
 ]
 
 const navLinks = [
-  { label: 'Shop All', href: '/collections/all', items: ['All Products', 'Best Sellers', 'New Arrivals', 'Combos & Offers'] },
-  { label: 'Mens Health', href: '/collections/mens-health', items: ['Stamina & Strength', 'Sexual Wellness', 'Hair Care', 'Testosterone'] },
-  { label: 'Womens Health', href: '/collections/womens-health', items: ['Fertility', 'PCOS Care', 'Hormonal Balance', 'Beauty'] },
-  { label: 'Gut Health', href: '/collections/gut-health', items: ['Probiotics', 'Digestion', 'Gas Relief', 'Bloating'] },
-  { label: 'Weight', href: '/collections/all', items: ['Fat Burners', 'Metabolism', 'Appetite Control'] },
-  { label: 'Beauty', href: '/collections/beauty', items: ['Skin Care', 'Hair Care', 'Anti-Aging'] },
-  { label: 'Diabetic Care', href: '/collections/diabetic-care', items: ['Blood Sugar', 'Diabetes Support'] },
+  { label: 'Shop All', href: '/collections/all', items: ['All Products', 'Best Sellers', 'New Arrivals'] },
+  { label: 'Wellness', href: '/collections/wellness', items: ['Brain & Focus', 'Stress & Sleep', 'Energy & Stamina', 'Immunity', 'Joint Support', 'Bone Health', 'Eye Health'] },
+  { label: 'Gut Health', href: '/collections/gut-health', items: ['Probiotics', 'Digestion', 'Gut Microbiome'] },
+  { label: 'Beauty', href: '/collections/beauty', items: ['Hair Growth', 'Skin & Collagen'] },
+  { label: 'Heart Health', href: '/collections/heart-health', items: ['Cardiovascular Support', 'Healthy Circulation'] },
+  { label: 'Diabetic Care', href: '/collections/diabetic-care', items: ['Blood Sugar', 'Insulin Support'] },
+  { label: 'Weight Management', href: '/collections/weight-management', items: ['Fat Burn', 'Metabolism Boost', 'Appetite Control'] },
   { label: 'About Us', href: '/' },
   { label: 'Blog', href: '/' },
 ]
@@ -234,20 +234,12 @@ function App() {
   const [heroPaused, setHeroPaused] = useState(false)
   const [stepIdx, setStepIdx] = useState(0)
   const [expertIdx, setExpertIdx] = useState(0)
-  const { count, setOpen: setCartOpen } = useCart()
-  const router = useRouter()
-  const [searchQ, setSearchQ] = useState('')
   const reelsRef = useRef(null)
 
   const scrollReels = (dir) => {
     if (!reelsRef.current) return
     const w = reelsRef.current.clientWidth
     reelsRef.current.scrollBy({ left: dir * (w * 0.7), behavior: 'smooth' })
-  }
-
-  const onSearch = (e) => {
-    e.preventDefault()
-    if (searchQ.trim()) router.push(`/search?q=${encodeURIComponent(searchQ.trim())}`)
   }
 
   // Auto-slide hero every 4.5s, pause on hover
@@ -283,66 +275,7 @@ function App() {
         </div>
       </div>
 
-      {/* Header */}
-      <header className="sticky top-0 z-50 bg-[#f7f3ec]/95 backdrop-blur border-b border-stone-200">
-        <div className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between gap-4">
-          <div className="flex items-center gap-2 lg:hidden">
-            <Sheet>
-              <SheetTrigger asChild>
-                <button className="p-2"><Menu className="w-6 h-6 text-[#1b3a2e]" /></button>
-              </SheetTrigger>
-              <SheetContent side="left" className="bg-[#f7f3ec]">
-                <div className="flex flex-col gap-4 mt-8">
-                  {navLinks.map(n => (
-                    <Link key={n.label} href={n.href || '#'} className="text-[#1b3a2e] font-medium border-b border-stone-200 pb-3">{n.label}</Link>
-                  ))}
-                  <Link href="/account/login" className="text-[#1b3a2e] font-medium border-b border-stone-200 pb-3">Account</Link>
-                </div>
-              </SheetContent>
-            </Sheet>
-          </div>
-
-          <a href="#" className="flex items-center gap-2">
-            <div className="flex flex-col leading-none">
-              <span className="font-serif text-2xl md:text-3xl font-bold text-[#1b3a2e] tracking-tight">ZeroHarm</span>
-              <span className="text-[10px] tracking-[0.3em] text-[#1b3a2e]/70 uppercase">Sciences</span>
-            </div>
-          </a>
-
-          <form onSubmit={onSearch} className="hidden md:flex flex-1 max-w-xl mx-4 relative">
-            <Input value={searchQ} onChange={e => setSearchQ(e.target.value)} placeholder="Search supplements, ingredients..." className="pl-10 bg-white border-stone-300 rounded-full h-11" />
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-stone-500" />
-          </form>
-
-          <div className="flex items-center gap-1 md:gap-3">
-            <Link href="/search" className="p-2 md:hidden"><Search className="w-5 h-5 text-[#1b3a2e]" /></Link>
-            <Link href="/account/login" className="p-2 hidden md:flex items-center gap-2"><User className="w-5 h-5 text-[#1b3a2e]" /></Link>
-            <button onClick={() => setCartOpen(true)} className="p-2 relative">
-              <ShoppingCart className="w-5 h-5 text-[#1b3a2e]" />
-              <span className="absolute -top-1 -right-1 bg-amber-500 text-white text-[10px] min-w-[18px] h-[18px] rounded-full flex items-center justify-center font-bold px-1">{count}</span>
-            </button>
-          </div>
-        </div>
-
-        <nav className="hidden lg:block border-t border-stone-200">
-          <div className="max-w-7xl mx-auto px-4">
-            <ul className="flex items-center justify-center gap-7 py-3">
-              {navLinks.map(n => (
-                <li key={n.label} className="group relative">
-                  <Link href={n.href || '#'} className="text-xs xl:text-sm font-medium text-[#1b3a2e] hover:text-amber-700 uppercase tracking-wide whitespace-nowrap">{n.label}</Link>
-                  {n.items && (
-                    <div className="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-56 bg-white border border-stone-200 rounded-lg shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all py-2 z-50">
-                      {n.items.map(it => (
-                        <Link key={it} href={n.href || '#'} className="block px-4 py-2 text-sm text-[#1b3a2e] hover:bg-stone-100">{it}</Link>
-                      ))}
-                    </div>
-                  )}
-                </li>
-              ))}
-            </ul>
-          </div>
-        </nav>
-      </header>
+      <SiteHeader showAnnouncement={false} />
 
       {/* Hero */}
       <section className="relative">
@@ -365,6 +298,22 @@ function App() {
               <button key={i} onClick={() => setHeroIdx(i)} className={`h-2 rounded-full transition-all ${i === heroIdx ? 'w-8 bg-white' : 'w-2 bg-white/60'}`} />
             ))}
           </div>
+        </div>
+      </section>
+
+       {/* Badge marquee */}
+      <section className="bg-[#1b3a2e] py-4 overflow-hidden border-y border-[#2a5444]">
+        <div className="flex animate-marquee-slow whitespace-nowrap gap-16">
+          {Array.from({length: 3}).map((_,k) => (
+            <div key={k} className="flex items-center gap-16 shrink-0">
+              {badges.map((b, i) => (
+                <div key={`${k}-${i}`} className="flex items-center gap-3 shrink-0">
+                  <img src={b.icon} alt={b.label} className="w-10 h-10 brightness-0 invert" />
+                  <span className="text-[#f7f3ec] text-sm md:text-base font-medium">{b.label}</span>
+                </div>
+              ))}
+            </div>
+          ))}
         </div>
       </section>
 
@@ -394,7 +343,7 @@ function App() {
                 <Link
                   key={i}
                   href={`/product/${r.productSlug}`}
-                  className="group relative shrink-0 snap-start w-[58vw] sm:w-[40vw] md:w-[280px] lg:w-[300px] aspect-[9/16] rounded-2xl overflow-hidden bg-stone-900 shadow-lg hover:shadow-2xl transition-shadow"
+                  className="group relative shrink-0 snap-start w-[45vw] sm:w-[33vw] md:w-[200px] lg:w-[220px] aspect-[9/16] rounded-2xl overflow-hidden bg-stone-900 shadow-lg hover:shadow-2xl transition-shadow"
                 >
                   {/* Background image */}
                   <img src={r.img} alt={r.caption} className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
@@ -453,21 +402,7 @@ function App() {
         </div>
       </section>
 
-      {/* Badge marquee */}
-      <section className="bg-[#1b3a2e] py-4 overflow-hidden border-y border-[#2a5444]">
-        <div className="flex animate-marquee-slow whitespace-nowrap gap-16">
-          {Array.from({length: 3}).map((_,k) => (
-            <div key={k} className="flex items-center gap-16 shrink-0">
-              {badges.map((b, i) => (
-                <div key={`${k}-${i}`} className="flex items-center gap-3 shrink-0">
-                  <img src={b.icon} alt={b.label} className="w-10 h-10 brightness-0 invert" />
-                  <span className="text-[#f7f3ec] text-sm md:text-base font-medium">{b.label}</span>
-                </div>
-              ))}
-            </div>
-          ))}
-        </div>
-      </section>
+     
 
       {/* Shop By Categories */}
       <section className="py-16 md:py-20 max-w-7xl mx-auto px-4">
@@ -530,7 +465,7 @@ function App() {
             <h2 className="font-serif text-3xl md:text-5xl text-[#1b3a2e] mb-6 leading-tight">What is Our Patented Nano-Technology</h2>
             <div className="space-y-4 text-stone-700 leading-relaxed">
               <p>Most supplements fail to deliver full benefits due to poor absorption.</p>
-              <p>ZeroHarm's nanotechnology solves this by converting nutrients into ultra-small, nano-sized particles for faster absorption and higher bioavailability. These nano-particles bypass stomach acids, delivering nutrients directly into the bloodstream and reaching cells faster.</p>
+              <p>Welpik's nanotechnology solves this by converting nutrients into ultra-small, nano-sized particles for faster absorption and higher bioavailability. These nano-particles bypass stomach acids, delivering nutrients directly into the bloodstream and reaching cells faster.</p>
               <p>Our nano-tablets dissolve only at pH 6-7.5, ensuring controlled release in the duodenum—the ideal absorption site. This means maximum nutrient delivery with a lower dosage, boosting efficiency.</p>
             </div>
             <Button className="mt-8 bg-[#1b3a2e] hover:bg-[#2a5444] text-white rounded-full px-8 h-12">Discover the Science <ArrowRight className="w-4 h-4 ml-2" /></Button>
@@ -560,7 +495,7 @@ function App() {
           <div className="text-center mb-12">
             <div className="text-amber-400 uppercase tracking-widest text-sm font-semibold mb-3">Process</div>
             <h2 className="font-serif text-3xl md:text-5xl mb-3">NanoTech Innovation at Its Finest</h2>
-            <p className="text-[#f7f3ec]/70 max-w-2xl mx-auto">From source to shelf — five rigorous steps that define every ZeroHarm formulation.</p>
+            <p className="text-[#f7f3ec]/70 max-w-2xl mx-auto">From source to shelf — five rigorous steps that define every Welpik formulation.</p>
           </div>
           <div className="grid grid-cols-2 md:grid-cols-5 gap-3 md:gap-4">
             {steps.map((s, i) => (
@@ -588,10 +523,10 @@ function App() {
           <div className="order-2 md:order-1">
             <div className="text-amber-700 uppercase tracking-widest text-sm font-semibold mb-3">Meet the Founder</div>
             <h2 className="font-serif text-4xl md:text-6xl text-[#1b3a2e] mb-2 leading-tight">Sachin Darbarwar</h2>
-            <p className="font-serif italic text-xl text-[#1b3a2e]/80 mb-6">"Our aim is to safeguard humanity from harm, that is how Zeroharm was born."</p>
+            <p className="font-serif italic text-xl text-[#1b3a2e]/80 mb-6">"Our aim is to safeguard humanity from harm, that is how Welpik was born."</p>
             <div className="space-y-4 text-stone-700 leading-relaxed">
               <p>After leading Simply Fresh Private Limited, India's largest state-of-the-art precision farm, and working across technology ecosystems in Australia, I saw how innovation can transform industries. Yet in plant-based medicine, one limitation persisted — bioavailability.</p>
-              <p>Powerful natural compounds often fall short due to poor absorption. Zeroharm was created to bridge this gap by combining nanotechnology with plant science, ensuring nutrients are delivered with precision and measurable effectiveness.</p>
+              <p>Powerful natural compounds often fall short due to poor absorption. Welpik was created to bridge this gap by combining nanotechnology with plant science, ensuring nutrients are delivered with precision and measurable effectiveness.</p>
             </div>
             <Button className="mt-8 bg-[#1b3a2e] hover:bg-[#2a5444] text-white rounded-full px-8 h-12">About Us <ArrowRight className="w-4 h-4 ml-2" /></Button>
           </div>
@@ -600,7 +535,7 @@ function App() {
               <img src="https://images.unsplash.com/photo-1556157382-97eda2d62296?w=900" alt="Sachin Darbarwar" className="w-full h-full object-cover" />
               <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-[#1b3a2e] to-transparent">
                 <div className="text-white font-serif text-2xl">Sachin Darbarwar</div>
-                <div className="text-white/80 text-sm">Founder & CEO, ZeroHarm Sciences</div>
+                <div className="text-white/80 text-sm">Founder & CEO, Welpik</div>
               </div>
             </div>
           </div>
@@ -679,7 +614,7 @@ function App() {
       {/* Instagram */}
       <section className="py-16 max-w-7xl mx-auto px-4">
         <div className="text-center mb-10">
-          <div className="text-amber-700 uppercase tracking-widest text-sm font-semibold mb-2">@zeroharm_sciences</div>
+          <div className="text-amber-700 uppercase tracking-widest text-sm font-semibold mb-2">@welpik</div>
           <h2 className="font-serif text-3xl md:text-5xl text-[#1b3a2e]">Follow Us on Instagram</h2>
         </div>
         <div className="grid grid-cols-2 md:grid-cols-6 gap-2 md:gap-4">
@@ -707,60 +642,7 @@ function App() {
       </section>
 
       {/* Footer */}
-      <footer className="bg-[#1b3a2e] text-[#f7f3ec] pt-16 pb-8">
-        <div className="max-w-7xl mx-auto px-4">
-          <div className="grid md:grid-cols-2 lg:grid-cols-5 gap-10 mb-12">
-            <div className="lg:col-span-2">
-              <div className="font-serif text-3xl font-bold mb-3">ZeroHarm</div>
-              <div className="text-xs tracking-[0.3em] uppercase text-[#f7f3ec]/60 mb-4">Sciences</div>
-              <p className="text-[#f7f3ec]/75 mb-6 max-w-sm leading-relaxed">India's 1st Nano formulated nutraceutical brand. 100% plant-based, clinically proven supplements crafted with patented nanotechnology.</p>
-              <div className="flex gap-3">
-                {[Facebook, Instagram, Youtube, Twitter].map((Icon, i) => (
-                  <a key={i} href="#" className="w-10 h-10 rounded-full border border-[#f7f3ec]/30 flex items-center justify-center hover:bg-[#f7f3ec] hover:text-[#1b3a2e] transition-colors">
-                    <Icon className="w-4 h-4" />
-                  </a>
-                ))}
-              </div>
-            </div>
-            <div>
-              <h4 className="font-serif text-lg mb-4 text-amber-400">Shop</h4>
-              <ul className="space-y-2 text-sm text-[#f7f3ec]/80">
-                {['All Products','Best Sellers','New Arrivals','Combos & Offers','Buy 3 @ ₹1999'].map(l => (
-                  <li key={l}><a href="#" className="hover:text-white">{l}</a></li>
-                ))}
-              </ul>
-            </div>
-            <div>
-              <h4 className="font-serif text-lg mb-4 text-amber-400">Company</h4>
-              <ul className="space-y-2 text-sm text-[#f7f3ec]/80">
-                {['About Us','Our Science','Sustainability','Blogs','Careers'].map(l => (
-                  <li key={l}><a href="#" className="hover:text-white">{l}</a></li>
-                ))}
-              </ul>
-            </div>
-            <div>
-              <h4 className="font-serif text-lg mb-4 text-amber-400">Support</h4>
-              <ul className="space-y-3 text-sm text-[#f7f3ec]/80">
-                <li className="flex items-start gap-2"><Phone className="w-4 h-4 mt-0.5 shrink-0" /><span>+91 9154863402</span></li>
-                <li className="flex items-start gap-2"><Mail className="w-4 h-4 mt-0.5 shrink-0" /><span>support@zeroharm.in</span></li>
-                <li className="flex items-start gap-2"><MapPin className="w-4 h-4 mt-0.5 shrink-0" /><span>Hyderabad, Telangana, India</span></li>
-                <li><a href="#" className="hover:text-white">Shipping Policy</a></li>
-                <li><a href="#" className="hover:text-white">Refund Policy</a></li>
-              </ul>
-            </div>
-          </div>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 border-t border-[#f7f3ec]/10 py-8">
-            <div className="flex items-center gap-3"><Truck className="w-6 h-6 text-amber-400" /><div><div className="font-medium text-sm">Free Shipping</div><div className="text-xs text-[#f7f3ec]/60">On orders above ₹999</div></div></div>
-            <div className="flex items-center gap-3"><ShieldCheck className="w-6 h-6 text-amber-400" /><div><div className="font-medium text-sm">Secure Payments</div><div className="text-xs text-[#f7f3ec]/60">100% safe checkout</div></div></div>
-            <div className="flex items-center gap-3"><Award className="w-6 h-6 text-amber-400" /><div><div className="font-medium text-sm">Clinically Tested</div><div className="text-xs text-[#f7f3ec]/60">Doctor recommended</div></div></div>
-            <div className="flex items-center gap-3"><Leaf className="w-6 h-6 text-amber-400" /><div><div className="font-medium text-sm">100% Plant Based</div><div className="text-xs text-[#f7f3ec]/60">Natural & ayurvedic</div></div></div>
-          </div>
-          <div className="flex flex-col md:flex-row justify-between items-center gap-4 pt-6 border-t border-[#f7f3ec]/10 text-xs text-[#f7f3ec]/60">
-            <div>© 2025 ZeroHarm Sciences. All rights reserved. UI clone for educational purposes.</div>
-            <div className="flex gap-6"><a href="#" className="hover:text-white">Privacy</a><a href="#" className="hover:text-white">Terms</a><a href="#" className="hover:text-white">Cookies</a></div>
-          </div>
-        </div>
-      </footer>
+      <SiteFooter />
 
       {/* WhatsApp */}
       <a href="#" className="fixed bottom-6 right-6 z-40 w-14 h-14 bg-green-500 rounded-full flex items-center justify-center shadow-2xl hover:scale-110 transition">

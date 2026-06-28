@@ -76,11 +76,8 @@ export default function LoginPage() {
     <div className="min-h-screen bg-[#f7f3ec] flex flex-col">
       <header className="bg-white border-b border-stone-200">
         <div className="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
-          <Link href="/" className="flex items-center gap-2">
-            <div className="flex flex-col leading-none">
-              <span className="font-serif text-2xl font-bold text-[#1b3a2e]">ZeroHarm</span>
-              <span className="text-[10px] tracking-[0.3em] text-[#1b3a2e]/70 uppercase">Sciences</span>
-            </div>
+          <Link href="/" className="flex items-center">
+            <img src="/logo/welpik-logo.png" alt="Welpik" className="h-10 w-auto object-contain" />
           </Link>
           <Link href="/" className="text-sm text-stone-600 hover:text-[#1b3a2e] flex items-center gap-1"><ArrowLeft className="w-4 h-4" /> Back to store</Link>
         </div>

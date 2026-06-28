@@ -4,18 +4,18 @@ import { useState, use } from 'react'
 import Link from 'next/link'
 import { notFound, useRouter } from 'next/navigation'
 import {
-  Search, ShoppingCart, User, Menu, ChevronLeft, ChevronRight,
+  ChevronLeft, ChevronRight,
   Star, Truck, ShieldCheck, Award, Leaf, Heart, Plus, Minus,
   Facebook, Instagram, Youtube, Twitter, ArrowRight, Phone, Mail, MapPin,
-  Check, Sparkles, FlaskConical, Pill
+  Check, Sparkles, FlaskConical, Pill, ShoppingCart
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs'
-import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'
-import { Input } from '@/components/ui/input'
+import SiteHeader from '@/components/site-header'
 import { PRODUCTS, getProduct } from '@/lib/products'
 import { useCart } from '@/lib/cart-context'
 import CartDrawer from '@/components/cart-drawer'
+import SiteFooter from '@/components/site-footer'
 
 function StarRating({ rating, size = 'sm' }) {
   const cls = size === 'sm' ? 'w-3.5 h-3.5' : 'w-5 h-5'
@@ -25,40 +25,6 @@ function StarRating({ rating, size = 'sm' }) {
         <Star key={i} className={`${cls} ${i <= Math.round(rating) ? 'fill-amber-500 text-amber-500' : 'fill-gray-200 text-gray-200'}`} />
       ))}
     </div>
-  )
-}
-
-function MiniHeader() {
-  const { count, setOpen } = useCart()
-  return (
-    <>
-      <div className="bg-[#1b3a2e] text-[#f7f3ec] text-xs md:text-sm py-2 text-center">
-        FREE Shipping on Orders Above ₹999 • Clinically Proven • 100% Plant Based
-      </div>
-      <header className="sticky top-0 z-50 bg-[#f7f3ec]/95 backdrop-blur border-b border-stone-200">
-        <div className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between gap-4">
-          <Link href="/" className="flex items-center gap-2">
-            <div className="flex flex-col leading-none">
-              <span className="font-serif text-2xl md:text-3xl font-bold text-[#1b3a2e] tracking-tight">ZeroHarm</span>
-              <span className="text-[10px] tracking-[0.3em] text-[#1b3a2e]/70 uppercase">Sciences</span>
-            </div>
-          </Link>
-          <div className="hidden md:flex flex-1 max-w-xl mx-4 relative">
-            <Input placeholder="Search supplements, ingredients..." className="pl-10 bg-white border-stone-300 rounded-full h-11" />
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-stone-500" />
-          </div>
-          <div className="flex items-center gap-1 md:gap-3">
-            <button className="p-2 hidden md:block"><User className="w-5 h-5 text-[#1b3a2e]" /></button>
-            <button onClick={() => setOpen(true)} className="p-2 relative">
-              <ShoppingCart className="w-5 h-5 text-[#1b3a2e]" />
-              {count > 0 && (
-                <span className="absolute -top-1 -right-1 bg-amber-500 text-white text-[10px] min-w-[18px] h-[18px] rounded-full flex items-center justify-center font-bold px-1">{count}</span>
-              )}
-            </button>
-          </div>
-        </div>
-      </header>
-    </>
   )
 }
 
@@ -84,7 +50,7 @@ export default function ProductPage({ params }) {
 
   return (
     <div className="min-h-screen bg-[#f7f3ec]">
-      <MiniHeader />
+      <SiteHeader />
       <CartDrawer />
 
       {/* Breadcrumb */}
@@ -240,7 +206,7 @@ export default function ProductPage({ params }) {
 
           <TabsContent value="desc" className="text-stone-700 leading-relaxed space-y-4">
             <p className="text-lg">{product.description}</p>
-            <p>Crafted with ZeroHarm's patented nano-technology, this formulation ensures maximum bioavailability — allowing the active botanicals to reach your cells where they're needed most. Made with ingredients sourced from pristine farms across the Himalayan, North-East, and Southern regions of India.</p>
+            <p>Crafted with Welpik's patented nano-technology, this formulation ensures maximum bioavailability — allowing the active botanicals to reach your cells where they're needed most. Made with ingredients sourced from pristine farms across the Himalayan, North-East, and Southern regions of India.</p>
             <p>Every batch is rigorously tested for purity and potency. No fillers, no harsh chemicals, no side effects.</p>
           </TabsContent>
 
@@ -326,21 +292,7 @@ export default function ProductPage({ params }) {
         </div>
       </section>
 
-      {/* Footer mini */}
-      <footer className="bg-[#1b3a2e] text-[#f7f3ec] py-12">
-        <div className="max-w-7xl mx-auto px-4 text-center">
-          <div className="font-serif text-3xl font-bold mb-2">ZeroHarm</div>
-          <div className="text-xs tracking-[0.3em] uppercase text-[#f7f3ec]/60 mb-6">Sciences</div>
-          <div className="flex gap-3 justify-center mb-6">
-            {[Facebook, Instagram, Youtube, Twitter].map((Icon, i) => (
-              <a key={i} href="#" className="w-10 h-10 rounded-full border border-[#f7f3ec]/30 flex items-center justify-center hover:bg-[#f7f3ec] hover:text-[#1b3a2e] transition-colors">
-                <Icon className="w-4 h-4" />
-              </a>
-            ))}
-          </div>
-          <div className="text-xs text-[#f7f3ec]/60">© 2025 ZeroHarm Sciences. UI clone for educational purposes.</div>
-        </div>
-      </footer>
+      <SiteFooter />
 
       {/* Sticky mobile CTA */}
       <div className="lg:hidden fixed bottom-0 left-0 right-0 z-40 bg-white border-t border-stone-200 p-3 flex gap-3">

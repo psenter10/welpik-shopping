@@ -10,6 +10,7 @@ import { getCollection, COLLECTIONS } from '@/lib/products'
 import { useCart } from '@/lib/cart-context'
 import SiteHeader from '@/components/site-header'
 import CartDrawer from '@/components/cart-drawer'
+import SiteFooter from '@/components/site-footer'
 
 const SORT_OPTIONS = [
   { id: 'featured', label: 'Featured' },
@@ -253,9 +254,7 @@ export default function CollectionPage({ params }) {
         </div>
       </section>
 
-      <footer className="bg-[#1b3a2e] text-[#f7f3ec] py-12 mt-16">
-        <div className="max-w-7xl mx-auto px-4 text-center text-sm text-[#f7f3ec]/70">© 2025 ZeroHarm Sciences. UI clone for educational purposes.</div>
-      </footer>
+      <SiteFooter />
     </div>
   )
 }
