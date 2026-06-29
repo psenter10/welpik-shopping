@@ -35,7 +35,7 @@ html {
 }
 
 .font-serif {
-  font-family: var(--font-playfair), serif;
+  font-family: var(--font-nunito), sans-serif;
 }
 
 .brand-green { color: #1b3a2e; }
