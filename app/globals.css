@@ -25,6 +25,15 @@
   --radius: 0.5rem;
 }
 
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
 .font-serif {
   font-family: var(--font-playfair), serif;
 }

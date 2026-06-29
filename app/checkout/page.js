@@ -338,7 +338,7 @@ function PaymentOption({ id, current, onSelect, icon, title, subtitle, badge, ch
           <div className="text-xs text-stone-500">{subtitle}</div>
         </div>
       </button>
-      {active && <div className="p-4 pt-0 pl-16">{children}</div>}
+      {active && <div className="p-4 pt-0 pl-4 sm:pl-16">{children}</div>}
     </div>
   )
 }

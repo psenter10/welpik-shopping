@@ -280,7 +280,7 @@ function App() {
       {/* Hero */}
       <section className="relative">
         <div
-          className="relative aspect-[16/8] md:aspect-[16/6] overflow-hidden bg-[#1b3a2e]"
+          className="relative aspect-[3/2] sm:aspect-[16/8] md:aspect-[16/6] overflow-hidden bg-[#1b3a2e]"
           onMouseEnter={() => setHeroPaused(true)}
           onMouseLeave={() => setHeroPaused(false)}
         >
@@ -449,7 +449,7 @@ function App() {
 
       {/* Nano Tech */}
       <section className="py-16 md:py-24 bg-[#ede4d3]">
-        <div className="max-w-6xl mx-auto px-4 grid md:grid-cols-2 gap-12 items-center">
+        <div className="max-w-6xl mx-auto px-4 grid md:grid-cols-2 gap-8 md:gap-12 items-center">
           <div className="relative">
             <div className="aspect-square rounded-3xl overflow-hidden bg-[#1b3a2e] relative">
               <img src="https://images.unsplash.com/photo-1597392582469-a697322d5c16?w=800" alt="" className="w-full h-full object-cover opacity-90" />
@@ -497,7 +497,7 @@ function App() {
             <h2 className="font-serif text-3xl md:text-5xl mb-3">NanoTech Innovation at Its Finest</h2>
             <p className="text-[#f7f3ec]/70 max-w-2xl mx-auto">From source to shelf — five rigorous steps that define every Welpik formulation.</p>
           </div>
-          <div className="grid grid-cols-2 md:grid-cols-5 gap-3 md:gap-4">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3 md:gap-4">
             {steps.map((s, i) => (
               <button key={s.step} onClick={() => setStepIdx(i)} className={`rounded-2xl p-5 text-left transition-all ${stepIdx === i ? 'bg-[#f7f3ec] text-[#1b3a2e]' : 'bg-[#2a5444] hover:bg-[#33644f]'}`}>
                 <div className={`text-xs uppercase tracking-widest mb-2 ${stepIdx === i ? 'text-amber-700' : 'text-amber-400'}`}>Step {s.step}</div>
@@ -506,7 +506,7 @@ function App() {
               </button>
             ))}
           </div>
-          <div className="mt-10 bg-[#2a5444] rounded-2xl p-8 md:p-12 grid md:grid-cols-3 gap-8 items-center">
+          <div className="mt-10 bg-[#2a5444] rounded-2xl p-6 md:p-12 grid md:grid-cols-3 gap-6 md:gap-8 items-center">
             <img src={steps[stepIdx].img} alt={steps[stepIdx].title} className="w-40 h-40 mx-auto" />
             <div className="md:col-span-2">
               <div className="text-amber-400 uppercase tracking-widest text-xs mb-2">Step {steps[stepIdx].step}</div>
@@ -519,10 +519,10 @@ function App() {
 
       {/* Founder */}
       <section className="py-16 md:py-24 bg-[#ede4d3]">
-        <div className="max-w-6xl mx-auto px-4 grid md:grid-cols-2 gap-12 items-center">
+        <div className="max-w-6xl mx-auto px-4 grid md:grid-cols-2 gap-8 md:gap-12 items-center">
           <div className="order-2 md:order-1">
             <div className="text-amber-700 uppercase tracking-widest text-sm font-semibold mb-3">Meet the Founder</div>
-            <h2 className="font-serif text-4xl md:text-6xl text-[#1b3a2e] mb-2 leading-tight">Sachin Darbarwar</h2>
+            <h2 className="font-serif text-3xl md:text-5xl lg:text-6xl text-[#1b3a2e] mb-2 leading-tight">Sachin Darbarwar</h2>
             <p className="font-serif italic text-xl text-[#1b3a2e]/80 mb-6">"Our aim is to safeguard humanity from harm, that is how Welpik was born."</p>
             <div className="space-y-4 text-stone-700 leading-relaxed">
               <p>After leading Simply Fresh Private Limited, India's largest state-of-the-art precision farm, and working across technology ecosystems in Australia, I saw how innovation can transform industries. Yet in plant-based medicine, one limitation persisted — bioavailability.</p>
@@ -544,18 +544,18 @@ function App() {
 
       {/* Experts */}
       <section className="py-16 md:py-24 max-w-7xl mx-auto px-4">
-        <h2 className="font-serif text-3xl md:text-5xl text-center text-[#1b3a2e] mb-3">What Leading Industry Experts Have to Say</h2>
-        <p className="text-center text-stone-600 mb-12 max-w-2xl mx-auto">Endorsed by India's top doctors and wellness specialists.</p>
+        <h2 className="font-serif text-2xl md:text-5xl text-center text-[#1b3a2e] mb-3">What Leading Industry Experts Have to Say</h2>
+        <p className="text-center text-stone-600 mb-8 md:mb-12 max-w-2xl mx-auto">Endorsed by India's top doctors and wellness specialists.</p>
         <div className="grid md:grid-cols-2 gap-8 items-center max-w-5xl mx-auto">
           <div className="relative aspect-square rounded-3xl overflow-hidden bg-[#ede4d3]">
             <img src={experts[expertIdx].img} alt={experts[expertIdx].name} className="w-full h-full object-cover" />
           </div>
           <div className="relative">
-            <div className="text-7xl text-amber-500 font-serif leading-none mb-2">“</div>
-            <p className="text-lg md:text-xl text-stone-700 font-serif italic leading-relaxed mb-6">{experts[expertIdx].quote}</p>
-            <div className="text-[#1b3a2e] font-serif text-2xl">{experts[expertIdx].name}</div>
+            <div className="text-5xl md:text-7xl text-amber-500 font-serif leading-none mb-2">“</div>
+            <p className="text-base md:text-xl text-stone-700 font-serif italic leading-relaxed mb-6">{experts[expertIdx].quote}</p>
+            <div className="text-[#1b3a2e] font-serif text-xl md:text-2xl">{experts[expertIdx].name}</div>
             <div className="text-stone-600 text-sm mt-1">{experts[expertIdx].title}</div>
-            <div className="flex gap-3 mt-8">
+            <div className="flex flex-wrap gap-3 mt-8">
               {experts.map((_, i) => (
                 <button key={i} onClick={() => setExpertIdx(i)} className={`w-12 h-12 rounded-full overflow-hidden border-2 transition-all ${expertIdx === i ? 'border-[#1b3a2e] scale-110' : 'border-transparent opacity-60'}`}>
                   <img src={experts[i].img} alt={experts[i].name} className="w-full h-full object-cover" />
@@ -588,6 +588,9 @@ function App() {
               </a>
             ))}
           </div>
+          <div className="flex justify-center mt-8 md:hidden">
+            <a href="#" className="flex items-center gap-2 text-[#1b3a2e] font-medium hover:underline text-sm">View all blogs <ArrowRight className="w-4 h-4" /></a>
+          </div>
         </div>
       </section>
 
@@ -601,9 +604,9 @@ function App() {
           </div>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
             {earthStats.map((s, i) => (
-              <div key={i} className="bg-[#2a5444] rounded-2xl p-6 text-center hover:bg-[#33644f] transition">
-                <img src={s.icon} alt="" className="w-16 h-16 mx-auto mb-4 brightness-0 invert" />
-                <div className="font-serif text-3xl md:text-4xl mb-2 text-amber-400">{s.value}</div>
+              <div key={i} className="bg-[#2a5444] rounded-2xl p-4 md:p-6 text-center hover:bg-[#33644f] transition">
+                <img src={s.icon} alt="" className="w-12 h-12 md:w-16 md:h-16 mx-auto mb-3 brightness-0 invert" />
+                <div className="font-serif text-xl md:text-3xl lg:text-4xl mb-2 text-amber-400 break-words">{s.value}</div>
                 <div className="text-[#f7f3ec]/85 text-sm">{s.label}</div>
               </div>
             ))}

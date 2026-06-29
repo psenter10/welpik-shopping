@@ -6,6 +6,11 @@ import { AuthProvider } from '@/lib/auth-context'
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' })
 const playfair = Playfair_Display({ subsets: ['latin'], variable: '--font-playfair' })
 
+export const viewport = {
+  width: 'device-width',
+  initialScale: 1,
+}
+
 export const metadata = {
   title: '100% Plant Based Natural Health Supplements India - Welpik',
   description: "India's 1st Nano formulated nutraceutical brand. Get 100% plant based natural wellness & healthcare supplements.",

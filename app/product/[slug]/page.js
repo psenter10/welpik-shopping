@@ -197,11 +197,11 @@ export default function ProductPage({ params }) {
       {/* Tabs: Description / Ingredients / Reviews */}
       <section className="max-w-5xl mx-auto px-4 py-16">
         <Tabs defaultValue="desc">
-          <TabsList className="bg-transparent gap-6 mb-8 border-b border-stone-200 w-full rounded-none justify-start h-auto pb-0">
-            <TabsTrigger value="desc" className="data-[state=active]:bg-transparent data-[state=active]:shadow-none data-[state=active]:text-[#1b3a2e] data-[state=active]:border-b-2 data-[state=active]:border-[#1b3a2e] rounded-none text-stone-500 text-base md:text-lg font-serif px-2 pb-3">Description</TabsTrigger>
-            <TabsTrigger value="ing" className="data-[state=active]:bg-transparent data-[state=active]:shadow-none data-[state=active]:text-[#1b3a2e] data-[state=active]:border-b-2 data-[state=active]:border-[#1b3a2e] rounded-none text-stone-500 text-base md:text-lg font-serif px-2 pb-3">Ingredients</TabsTrigger>
-            <TabsTrigger value="ben" className="data-[state=active]:bg-transparent data-[state=active]:shadow-none data-[state=active]:text-[#1b3a2e] data-[state=active]:border-b-2 data-[state=active]:border-[#1b3a2e] rounded-none text-stone-500 text-base md:text-lg font-serif px-2 pb-3">Benefits</TabsTrigger>
-            <TabsTrigger value="rev" className="data-[state=active]:bg-transparent data-[state=active]:shadow-none data-[state=active]:text-[#1b3a2e] data-[state=active]:border-b-2 data-[state=active]:border-[#1b3a2e] rounded-none text-stone-500 text-base md:text-lg font-serif px-2 pb-3">Reviews ({product.reviews})</TabsTrigger>
+          <TabsList className="bg-transparent gap-4 mb-8 border-b border-stone-200 w-full rounded-none justify-start h-auto pb-0 overflow-x-auto no-scrollbar">
+            <TabsTrigger value="desc" className="data-[state=active]:bg-transparent data-[state=active]:shadow-none data-[state=active]:text-[#1b3a2e] data-[state=active]:border-b-2 data-[state=active]:border-[#1b3a2e] rounded-none text-stone-500 text-sm md:text-lg font-serif px-2 pb-3 whitespace-nowrap shrink-0">Description</TabsTrigger>
+            <TabsTrigger value="ing" className="data-[state=active]:bg-transparent data-[state=active]:shadow-none data-[state=active]:text-[#1b3a2e] data-[state=active]:border-b-2 data-[state=active]:border-[#1b3a2e] rounded-none text-stone-500 text-sm md:text-lg font-serif px-2 pb-3 whitespace-nowrap shrink-0">Ingredients</TabsTrigger>
+            <TabsTrigger value="ben" className="data-[state=active]:bg-transparent data-[state=active]:shadow-none data-[state=active]:text-[#1b3a2e] data-[state=active]:border-b-2 data-[state=active]:border-[#1b3a2e] rounded-none text-stone-500 text-sm md:text-lg font-serif px-2 pb-3 whitespace-nowrap shrink-0">Benefits</TabsTrigger>
+            <TabsTrigger value="rev" className="data-[state=active]:bg-transparent data-[state=active]:shadow-none data-[state=active]:text-[#1b3a2e] data-[state=active]:border-b-2 data-[state=active]:border-[#1b3a2e] rounded-none text-stone-500 text-sm md:text-lg font-serif px-2 pb-3 whitespace-nowrap shrink-0">Reviews ({product.reviews})</TabsTrigger>
           </TabsList>
 
           <TabsContent value="desc" className="text-stone-700 leading-relaxed space-y-4">
@@ -292,6 +292,7 @@ export default function ProductPage({ params }) {
         </div>
       </section>
 
+      <div className="lg:hidden h-20" />
       <SiteFooter />
 
       {/* Sticky mobile CTA */}

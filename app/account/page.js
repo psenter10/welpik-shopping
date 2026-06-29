@@ -76,31 +76,51 @@ export default function AccountPage() {
         </div>
       </section>
 
-      <div className="max-w-6xl mx-auto px-4 py-10 grid lg:grid-cols-[260px_1fr] gap-8">
+      <div className="max-w-6xl mx-auto px-4 py-6 lg:py-10 grid lg:grid-cols-[260px_1fr] gap-6 lg:gap-8">
         {/* Sidebar */}
         <aside>
-          <div className="bg-white rounded-2xl border border-stone-200 overflow-hidden">
-            {TABS.map(t => (
-              <button key={t.id} onClick={() => setActiveTab(t.id)} className={`w-full flex items-center gap-3 px-5 py-4 text-left border-b border-stone-100 last:border-b-0 transition ${activeTab === t.id ? 'bg-[#1b3a2e] text-white' : 'text-[#1b3a2e] hover:bg-stone-50'}`}>
-                <t.icon className="w-5 h-5" />
-                <span className="flex-1 font-medium">{t.label}</span>
-                <ChevronRight className="w-4 h-4 opacity-50" />
+          {/* Mobile: horizontal scrollable tab chips */}
+          <div className="lg:hidden bg-white rounded-2xl border border-stone-200 overflow-x-auto no-scrollbar">
+            <div className="flex p-2 gap-2">
+              {TABS.map(t => (
+                <button key={t.id} onClick={() => setActiveTab(t.id)}
+                  className={`flex items-center gap-2 px-4 py-2.5 rounded-full text-sm font-medium whitespace-nowrap shrink-0 transition ${activeTab === t.id ? 'bg-[#1b3a2e] text-white' : 'text-[#1b3a2e] bg-stone-100 hover:bg-stone-200'}`}>
+                  <t.icon className="w-4 h-4" />
+                  {t.label}
+                </button>
+              ))}
+              <button onClick={() => { logout(); router.push('/') }}
+                className="flex items-center gap-2 px-4 py-2.5 rounded-full text-sm font-medium whitespace-nowrap shrink-0 transition text-red-700 bg-red-50 hover:bg-red-100">
+                <LogOut className="w-4 h-4" /> Log out
               </button>
-            ))}
-            <button onClick={() => { logout(); router.push('/') }} className="w-full flex items-center gap-3 px-5 py-4 text-left text-red-700 hover:bg-red-50 border-t border-stone-200">
-              <LogOut className="w-5 h-5" /> <span className="flex-1 font-medium">Log out</span>
-            </button>
+            </div>
           </div>
 
-          {/* Perks */}
-          <div className="mt-6 bg-[#1b3a2e] rounded-2xl p-5 text-[#f7f3ec]">
-            <div className="flex items-center gap-2 text-amber-400 mb-2"><Award className="w-5 h-5" /><span className="font-serif text-lg">Member Perks</span></div>
-            <ul className="text-sm text-[#f7f3ec]/85 space-y-1.5">
-              <li>• Free shipping on ₹999+</li>
-              <li>• Early access to new launches</li>
-              <li>• Birthday gift on us</li>
-              <li>• Personalized recommendations</li>
-            </ul>
+          {/* Desktop: vertical sidebar */}
+          <div className="hidden lg:block">
+            <div className="bg-white rounded-2xl border border-stone-200 overflow-hidden">
+              {TABS.map(t => (
+                <button key={t.id} onClick={() => setActiveTab(t.id)} className={`w-full flex items-center gap-3 px-5 py-4 text-left border-b border-stone-100 last:border-b-0 transition ${activeTab === t.id ? 'bg-[#1b3a2e] text-white' : 'text-[#1b3a2e] hover:bg-stone-50'}`}>
+                  <t.icon className="w-5 h-5" />
+                  <span className="flex-1 font-medium">{t.label}</span>
+                  <ChevronRight className="w-4 h-4 opacity-50" />
+                </button>
+              ))}
+              <button onClick={() => { logout(); router.push('/') }} className="w-full flex items-center gap-3 px-5 py-4 text-left text-red-700 hover:bg-red-50 border-t border-stone-200">
+                <LogOut className="w-5 h-5" /> <span className="flex-1 font-medium">Log out</span>
+              </button>
+            </div>
+
+            {/* Perks */}
+            <div className="mt-6 bg-[#1b3a2e] rounded-2xl p-5 text-[#f7f3ec]">
+              <div className="flex items-center gap-2 text-amber-400 mb-2"><Award className="w-5 h-5" /><span className="font-serif text-lg">Member Perks</span></div>
+              <ul className="text-sm text-[#f7f3ec]/85 space-y-1.5">
+                <li>• Free shipping on ₹999+</li>
+                <li>• Early access to new launches</li>
+                <li>• Birthday gift on us</li>
+                <li>• Personalized recommendations</li>
+              </ul>
+            </div>
           </div>
         </aside>
 

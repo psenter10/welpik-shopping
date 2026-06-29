@@ -99,8 +99,9 @@ export default function SiteHeader({ showAnnouncement = true }) {
   return (
     <>
       {showAnnouncement && (
-        <div className="bg-[#1b3a2e] text-[#f7f3ec] text-xs py-2 text-center tracking-wide">
-          FREE Shipping on Orders Above ₹999 &nbsp;•&nbsp; Clinically Proven &nbsp;•&nbsp; 100% Plant Based
+        <div className="bg-[#1b3a2e] text-[#f7f3ec] text-xs py-2 text-center tracking-wide px-3">
+          <span className="sm:hidden">Free Shipping ₹999+ &nbsp;•&nbsp; 100% Plant Based</span>
+          <span className="hidden sm:inline">FREE Shipping on Orders Above ₹999 &nbsp;•&nbsp; Clinically Proven &nbsp;•&nbsp; 100% Plant Based</span>
         </div>
       )}
 
